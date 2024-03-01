@@ -1,7 +1,6 @@
 package graphql.schema;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
 import graphql.Assert;
 import graphql.DirectivesUtil;
 import graphql.Internal;
@@ -39,7 +38,6 @@ import static graphql.util.FpKit.valuesToList;
  */
 @PublicApi
 public class GraphQLObjectType implements GraphQLNamedOutputType, GraphQLCompositeType, GraphQLUnmodifiedType, GraphQLNullableType, GraphQLDirectiveContainer, GraphQLImplementingType {
-
 
     private final String name;
     private final String description;
@@ -131,7 +129,6 @@ public class GraphQLObjectType implements GraphQLNamedOutputType, GraphQLComposi
     public List<GraphQLFieldDefinition> getFieldDefinitions() {
         return ImmutableList.copyOf(fieldDefinitionsByName.values());
     }
-
 
     @Override
     public List<GraphQLNamedOutputType> getInterfaces() {

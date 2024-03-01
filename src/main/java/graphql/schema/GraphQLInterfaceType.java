@@ -7,6 +7,7 @@ import graphql.Internal;
 import graphql.PublicApi;
 import graphql.language.InterfaceTypeDefinition;
 import graphql.language.InterfaceTypeExtensionDefinition;
+import graphql.util.FieldNameInterner;
 import graphql.util.FpKit;
 import graphql.util.TraversalControl;
 import graphql.util.TraverserContext;
@@ -51,7 +52,6 @@ public class GraphQLInterfaceType implements GraphQLNamedType, GraphQLCompositeT
     private final Comparator<? super GraphQLSchemaElement> interfaceComparator;
     private ImmutableList<GraphQLNamedOutputType> replacedInterfaces;
 
-
     public static final String CHILD_FIELD_DEFINITIONS = "fieldDefinitions";
     public static final String CHILD_INTERFACES = "interfaces";
 
@@ -90,7 +90,6 @@ public class GraphQLInterfaceType implements GraphQLNamedType, GraphQLCompositeT
     public GraphQLFieldDefinition getFieldDefinition(String name) {
         return fieldDefinitionsByName.get(name);
     }
-
 
     @Override
     public List<GraphQLFieldDefinition> getFieldDefinitions() {
@@ -224,9 +223,9 @@ public class GraphQLInterfaceType implements GraphQLNamedType, GraphQLCompositeT
     @Override
     public List<GraphQLNamedOutputType> getInterfaces() {
         if (replacedInterfaces != null) {
-            return ImmutableList.copyOf(replacedInterfaces);
+            return replacedInterfaces;
         }
-        return ImmutableList.copyOf(originalInterfaces);
+        return originalInterfaces;
     }
 
     void replaceInterfaces(List<GraphQLNamedOutputType> interfaces) {
